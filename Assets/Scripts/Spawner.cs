@@ -10,18 +10,21 @@ public class Spawner : MonoBehaviour
     private GameObject objectToPlace;
     public ARRaycastManager raycastManager;
     Camera arCamera;
+    GameObject mainCanvas;
 
     public bool useCursor = true;
 
     private void Awake()
     {
         arCamera = GameObject.Find("AR Camera").GetComponent<Camera>();
+        mainCanvas = GameObject.Find("MainCanvas");
     }
 
     void Start()
     {
         cursorChildObject.SetActive(useCursor);
         arCamera.enabled = false;
+        mainCanvas.SetActive(true);
     }
 
     void Update()
@@ -66,5 +69,28 @@ public class Spawner : MonoBehaviour
     {
         arCamera.enabled = true;
         objectToPlace = objectToPlaceGameObjects[0];
+        mainCanvas.SetActive(false);
+    }
+
+    public void CubeClicked()
+    {
+        arCamera.enabled = true;
+        objectToPlace = objectToPlaceGameObjects[1];
+        mainCanvas.SetActive(false);
+    }
+    public void SphereClicked()
+    {
+        arCamera.enabled = true;
+        objectToPlace = objectToPlaceGameObjects[2];
+        mainCanvas.SetActive(false);
+    }
+    public void BackButtonClicked()
+    {
+        arCamera.enabled = false;
+        mainCanvas.SetActive(true);
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
